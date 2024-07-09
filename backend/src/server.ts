@@ -1,14 +1,14 @@
-import express from "express";
-// import cors from "cors";
+import App from "./app";
+import { configDotenv } from "dotenv";
 
-const app = express();
-// app.use(cors());
-app.use(express.json());
+configDotenv();
+const port = parseInt(process.env.PORT || "3000");
+const server = new App()
+  .Start(port)
+  .then((port) => console.log(`Server running on port ${port}`))
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });
 
-app.get("/", (req, res) => {
-    res.send("aaaeee!");
-}); 
-
-app.listen(3000, () => {
-    console.log("Server started on port 3000");
-});
+export default server;
