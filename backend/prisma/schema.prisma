@@ -49,6 +49,7 @@ model Usuario {
 //   usuario          Usuario? @relation(fields: [usuarioId], references: [id]) // um assistido pertence a um usuario
 // }
 
+// podemos pensar em separar os quadros de aviso em reuniões, necessitades ou gerais
 model QuadroAviso {
   id           Int      @id @default(autoincrement())
   avisos       Aviso[] // um quadro de aviso pode ter varios avisos 

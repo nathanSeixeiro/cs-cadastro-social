@@ -1,11 +1,11 @@
-import Aviso from "./Avisos";
+import Aviso from "@/Models/Avisos";
 
-interface AvisoRepository {
-  create(aviso: Aviso): Promise<Aviso>;
+interface AvisoRepositoryInterface {
+  create(aviso: Aviso): Promise<object>;
   findById(id: number): Promise<Aviso | null>;
   findAll(): Promise<Aviso[]>;
   update(id: number, aviso: Aviso): Promise<Aviso>;
   delete(id: number): Promise<void>;
 }
 
-export default AvisoRepository;
+export default AvisoRepositoryInterface;
