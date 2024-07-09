@@ -1,6 +1,6 @@
 import Aviso from "@/Models/Avisos";
 
-interface AvisoRepositoryInterface {
+interface IAvisoRepositoryInterfaceAvisoRepository {
   create(aviso: Aviso): Promise<object>;
   findById(id: number): Promise<Aviso | null>;
   findAll(): Promise<Aviso[]>;
@@ -8,4 +8,4 @@ interface AvisoRepositoryInterface {
   delete(id: number): Promise<void>;
 }
 
-export default AvisoRepositoryInterface;
+export default IAvisoRepositoryInterfaceAvisoRepository;

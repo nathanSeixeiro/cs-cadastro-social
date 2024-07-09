@@ -16,6 +16,9 @@ AvisoRouter.delete(
   "/:id",
   async (req, res) => await controller.delete(req, res)
 );
-AvisoRouter.put("/update/:id", async (req, res) => await controller.update(req, res));
+AvisoRouter.put(
+  "/update/:id",
+  async (req, res) => await controller.update(req, res)
+);
 
 export default AvisoRouter;

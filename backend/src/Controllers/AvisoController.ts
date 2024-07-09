@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import AvisoRepositoryInterface from "../interfaces/aviso-repository-interface";
+import IAvisoRepository from "../interfaces/aviso-repository-interface";
 
 export default class AvisoController {
-  constructor(private avisoRepository: AvisoRepositoryInterface) {}
+  constructor(private avisoRepository: IAvisoRepository) {}
 
   async create(req: Request, res: Response) {
     try {
