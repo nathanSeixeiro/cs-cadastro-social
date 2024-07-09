@@ -3,10 +3,55 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 // montar schema do banco de dados
 // npx prisma migrate dev --name init
-// npx prisma migrate dev --name npx prisma generate
+// npx prisma generate
+
+model Aviso {
+  id         Int      @id @default(autoincrement())
+  titulo     String
+  descricao  String
+  quadroAviso QuadroAviso? @relation(fields: [quadroAvisoId], references: [id]) // um aviso pertence a um quadro de aviso
+  quadroAvisoId Int?
+}
+
+model Usuario {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  telefone  String
+  email     String
+  senha     String
+  ativo     Boolean
+  // assitidos   Assistido[] // um usuario pode ter varios assistidos
+}
+
+// model Assistido {
+//   id               Int      @id @default(autoincrement())
+//   nome             String
+//   data_nascimento  DateTime
+//   endereco         String
+//   sexo             String
+//   situacao         String
+//   familiar_proximo Boolean
+//   estado_civil     String
+//   filhos           String[]
+//   trabalho         String[]
+//   motivo_saiu      String
+//   existe_contato   Boolean
+//   ajuda            String[]
+//   descricao        String
+//   informacao_medica String
+//   usuarioId        Int?
+//   usuario          Usuario? @relation(fields: [usuarioId], references: [id]) // um assistido pertence a um usuario
+// }
+
+model QuadroAviso {
+  id           Int      @id @default(autoincrement())
+  avisos       Aviso[] // um quadro de aviso pode ter varios avisos 
+  // necessidades String[] 
+}
+
