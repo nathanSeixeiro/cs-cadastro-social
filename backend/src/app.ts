@@ -4,7 +4,7 @@ import * as bodyParser from "body-parser";
 import MainRouter from "./MainRouter";
 
 export default class App {
-  private httpServer: any;
+  private httpServer: express.Express;
 
   constructor() {
     this.httpServer = express();
