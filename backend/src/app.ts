@@ -1,7 +1,7 @@
 import express from "express";
 import * as bodyParser from "body-parser";
 
-import Router from "./Router";
+import MainRouter from "./MainRouter";
 
 export default class App {
   private httpServer: any;
@@ -11,7 +11,7 @@ export default class App {
     this.httpServer.use(bodyParser.json());
     this.httpServer.use(bodyParser.urlencoded({ extended: true }));
 
-    new Router(this.httpServer);
+    new MainRouter(this.httpServer);
   }
 
   public Start(port: number) {

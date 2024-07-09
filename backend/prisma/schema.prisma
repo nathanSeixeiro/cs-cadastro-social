@@ -1,0 +1,12 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// montar schema do banco de dados
+// npx prisma migrate dev --name init
+// npx prisma migrate dev --name npx prisma generate
