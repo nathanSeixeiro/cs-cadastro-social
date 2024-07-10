@@ -1,7 +1,8 @@
 import express from "express";
 import * as bodyParser from "body-parser";
 
-import MainRouter from "./MainRouter";
+import "./utils/cron";
+import MainRouter from "./routes/MainRouter";
 
 export default class App {
   private httpServer: express.Express;
