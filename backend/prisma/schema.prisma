@@ -17,6 +17,7 @@ model Aviso {
   descricao  String
   quadroAviso QuadroAviso? @relation(fields: [quadroAvisoId], references: [id]) // um aviso pertence a um quadro de aviso
   quadroAvisoId Int?
+  createdAt  DateTime @default(now())
 }
 
 model Usuario {

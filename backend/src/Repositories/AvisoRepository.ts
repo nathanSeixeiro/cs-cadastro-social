@@ -40,6 +40,16 @@ class AvisoRepository implements IAvisoRepositoryInterface {
       where: { id },
     });
   }
+  async deleteOlderThan(date: Date): Promise<void> {
+    console.log(date);
+    await prisma.aviso.deleteMany({
+      where: {
+        createdAt: {
+          lt: date,
+        },
+      },
+    })
+  }
 }
 
 export default AvisoRepository;
