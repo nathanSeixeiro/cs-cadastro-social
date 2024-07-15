@@ -8,7 +8,7 @@ datasource db {
 }
 
 // montar schema do banco de dados
-// npx prisma migrate dev --name init
+// npx prisma migrate dev --name nomeDaMudanca
 // npx prisma generate
 
 model Aviso {

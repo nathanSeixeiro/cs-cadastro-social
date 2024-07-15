@@ -1,5 +1,4 @@
 import Aviso from "@/Models/Avisos";
-import { date } from 'zod';
 
 interface IAvisoRepositoryInterfaceAvisoRepository {
   create(aviso: Aviso): Promise<object>;

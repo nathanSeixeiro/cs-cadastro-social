@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import IAvisoRepository from "../interfaces/aviso-repository-interface";
+import Aviso from "../Models/Avisos";
 
 export default class AvisoController {
   constructor(private avisoRepository: IAvisoRepository) {}
 
   async create(req: Request, res: Response) {
     try {
-      const aviso = await this.avisoRepository.create(req.body);
+      const aviso = await this.avisoRepository.create(req.body as Aviso);
       if (!aviso) {
         throw new Error("Erro ao criar o aviso");
       }
