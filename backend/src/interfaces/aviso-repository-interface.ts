@@ -1,7 +1,6 @@
 import Aviso from "@/Models/Avisos";
-import { date } from 'zod';
 
-interface IAvisoRepositoryInterfaceAvisoRepository {
+interface IAvisoRepository {
   create(aviso: Aviso): Promise<object>;
   findById(id: number): Promise<Aviso | null>;
   findAll(): Promise<Aviso[]>;
@@ -10,4 +9,4 @@ interface IAvisoRepositoryInterfaceAvisoRepository {
   deleteOlderThan(date: Date): Promise<void>;
 }
 
-export default IAvisoRepositoryInterfaceAvisoRepository;
+export default IAvisoRepository;
