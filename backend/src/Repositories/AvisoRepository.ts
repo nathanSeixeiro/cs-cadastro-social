@@ -1,8 +1,8 @@
 import Aviso from "@/Models/Avisos";
-import IAvisoRepositoryInterface from "@/interfaces/aviso-repository-interface";
+import IAvisoRepository from "@/interfaces/aviso-repository-interface";
 import { prisma } from "../utils/prisma";
 
-class AvisoRepository implements IAvisoRepositoryInterface {
+class AvisoRepository implements IAvisoRepository {
   async create(aviso: Aviso): Promise<object> {
     const newAviso = await prisma.aviso.create({
       data: {
