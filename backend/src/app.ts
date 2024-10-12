@@ -10,7 +10,7 @@ export default class App {
   constructor() {
     this.httpServer = express();
     this.httpServer.use(bodyParser.json());
-    this.httpServer.use(bodyParser.urlencoded({ extended: true }));
+    // this.httpServer.use(bodyParser.urlencoded({ extended: true }));
 
     new MainRouter(this.httpServer);
   }

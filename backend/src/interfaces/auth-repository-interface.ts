@@ -1,7 +1,7 @@
 
 
 interface IAuthRepository {
-  login(email: string, senha: string): Promise<object | null>;
+  createToken(email: string, senha: string): Promise<string>;
   register(email: string, senha: string): Promise<object | null>;
   logout(): Promise<void>;
 }
