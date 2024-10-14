@@ -35,7 +35,7 @@ export default class AuthController {
         return res.status(401).json({ message: "senha inválida" });
       }
 
-      const token = await this.authRepository.createToken(email, senha);
+      const token = await this.authRepository.createToken(email);
       if (!token) {
         return res.status(401).json({ message: "Credenciais inválidas" });
       }
