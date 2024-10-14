@@ -12,7 +12,7 @@ export default class UsuarioController {
       if (!usuario) {
         throw new Error("Erro ao criar o usuario");
       }
-      const {senha: _, ...novoUsuario} = usuario as Usuario;
+      const { senha: _, ...novoUsuario } = usuario as Usuario;
       res.status(201).json(novoUsuario);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
@@ -66,12 +66,19 @@ export default class UsuarioController {
 
   async update(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
       const { id } = req.params;
       const usuarioRequest: Partial<Usuario> = req.body;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       if (!id) {
         throw new Error("ID do usuario não fornecido");
       }
-      const usuario = await this.usuarioRepository.update(Number(id), usuarioRequest);
+      const usuario = await this.usuarioRepository.update(
+        Number(id),
+        usuarioRequest
+      );
       if (!usuario) {
         throw new Error("Erro ao atualizar o usuario");
       }
@@ -83,6 +90,10 @@ export default class UsuarioController {
 
   async delete(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const { id } = req.params;
       if (!id) {
         throw new Error("ID do usuario não fornecido");
@@ -96,12 +107,18 @@ export default class UsuarioController {
 
   async setStatus(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const { id } = req.params;
       if (!id) {
         throw new Error("ID do usuario não fornecido");
       }
       await this.usuarioRepository.setStatus(Number(id), req.body.ativo);
-      res.status(200).json({ message: `Status do usuario ${id} alterado para ${req.body.ativo}` });
+      res.status(200).json({
+        message: `Status do usuario ${id} alterado para ${req.body.ativo}`,
+      });
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
