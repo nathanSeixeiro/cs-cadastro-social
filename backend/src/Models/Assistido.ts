@@ -7,6 +7,7 @@ type Assistido = {
   descricao: string;
   endereco: string[];
   trabalho: string[];
+  ativo: boolean;
   created_at: string;
   updated_at: string;
   motivo_saiu: string;
