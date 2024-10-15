@@ -1,9 +1,11 @@
 import { prisma } from "../utils/prisma";
 import Usuario from "../Models/Usuario";
 import IUsuarioRepository from "../interfaces/usuario-repository-interface";
+import { hashPassword } from "../utils/bycript";
 
 class UsuarioRepository implements IUsuarioRepository {
   async create(usuario: Usuario): Promise<object> {
+    usuario.senha = hashPassword(usuario.senha);
     const newUsuario = await prisma.usuario.create({
       data: {
         nome: usuario.nome,
@@ -27,6 +29,19 @@ class UsuarioRepository implements IUsuarioRepository {
       return null;
     }
     return usuario as Usuario;
+  }
+
+  async findByEmail(email: string): Promise<Usuario | null> {
+    const usuario = await prisma.usuario.findFirst({
+      where: {
+        email: email,
+      }
+    })
+
+    if (!usuario) {
+      return null;
+    }
+    return usuario as Usuario
   }
 
   async findAll(): Promise<Usuario[]> {
