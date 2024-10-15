@@ -7,6 +7,10 @@ export default class AvisoController {
 
   async create(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const aviso = await this.avisoRepository.create(req.body as Aviso);
       if (!aviso) {
         throw new Error("Erro ao criar o aviso");
@@ -19,6 +23,10 @@ export default class AvisoController {
 
   async findById(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const { id } = req.params;
       if (!id) {
         throw new Error("ID do aviso não fornecido");
@@ -36,6 +44,10 @@ export default class AvisoController {
 
   async findAll(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const avisos = await this.avisoRepository.findAll();
       if (!avisos) {
         throw new Error("Nenhum aviso encontrado");
@@ -48,6 +60,10 @@ export default class AvisoController {
 
   async update(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const { id } = req.params;
       if (!id) {
         throw new Error("ID do aviso não fornecido");
@@ -64,6 +80,10 @@ export default class AvisoController {
 
   async delete(req: Request, res: Response) {
     try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
       const { id } = req.params;
       if (!id) {
         throw new Error("ID do aviso não fornecido");
@@ -75,5 +95,3 @@ export default class AvisoController {
     }
   }
 }
-
-
