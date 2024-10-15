@@ -25,7 +25,7 @@ export default class AssistidoController {
             }
             const assistido = await this.assistidoRepository.findById(Number(id))
             if (!assistido) {
-                req.status(404).json({ message: "Assistido não encontrato" })
+                res.status(404).json({ message: "Assistido não encontrato" })
                 return
             }
             res.status(200).json(assistido);
