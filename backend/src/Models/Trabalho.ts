@@ -4,8 +4,8 @@ type Trabalho = {
   id: number;
   profissao: string;
   atual: boolean;
-  assistidoId?: number;
-  assistido?: Assistido;
+  assistidoId: number;
+  assistidos?: Assistido[];
 };
 
 export default Trabalho;
