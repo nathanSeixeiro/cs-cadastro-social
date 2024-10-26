@@ -5,7 +5,7 @@ type Familia = {
   nome: string;
   parentesco: string;
   telefone: string;
-  assistidoId?: number;
+  assistidoId: number;
   assistido?: Assistido;
 };
 
