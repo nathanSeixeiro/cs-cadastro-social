@@ -1,5 +1,5 @@
-import Aviso from "@/Models/Avisos";
-import IAvisoRepository from "@/interfaces/aviso-repository-interface";
+import Aviso from "../Models/Avisos";
+import IAvisoRepository from "../interfaces/aviso-repository-interface";
 import { prisma } from "../utils/prisma";
 
 class AvisoRepository implements IAvisoRepository {
@@ -48,11 +48,8 @@ class AvisoRepository implements IAvisoRepository {
           lt: date,
         },
       },
-    })
+    });
   }
 }
 
 export default AvisoRepository;
-
-
-

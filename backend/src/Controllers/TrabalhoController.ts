@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import IAvisoRepository from "../interfaces/aviso-repository-interface";
-import Aviso from "../Models/Avisos";
+import ITrabalhoRepository from "../interfaces/trabalho-repository-interface";
 
-export default class AvisoController {
-  constructor(private avisoRepository: IAvisoRepository) {}
+export default class TrabalhoController {
+  constructor(private trabalhoRepository: ITrabalhoRepository) {}
 
   async create(req: Request, res: Response) {
     try {
@@ -11,11 +10,27 @@ export default class AvisoController {
       if (!authorization) {
         throw new Error("Não autorizado");
       }
-      const aviso = await this.avisoRepository.create(req.body as Aviso);
-      if (!aviso) {
-        throw new Error("Erro ao criar o aviso");
+      const trabalho = await this.trabalhoRepository.create(req.body);
+      if (!trabalho) {
+        throw new Error("Erro ao criar o trabalho");
       }
-      res.status(201).json(aviso);
+      res.status(201).json(trabalho);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  async findAll(req: Request, res: Response) {
+    try {
+      const { authorization } = req.headers;
+      if (!authorization) {
+        throw new Error("Não autorizado");
+      }
+      const trabalhos = await this.trabalhoRepository.findAll();
+      if (!trabalhos) {
+        throw new Error("Nenhum trabalho encontrado");
+      }
+      res.status(200).json(trabalhos);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -29,30 +44,14 @@ export default class AvisoController {
       }
       const { id } = req.params;
       if (!id) {
-        throw new Error("ID do aviso não fornecido");
+        throw new Error("ID do trabalho não fornecido");
       }
-      const aviso = await this.avisoRepository.findById(Number(id));
-      if (!aviso) {
-        res.status(404).json({ message: "Aviso não encontrado" });
+      const trabalho = await this.trabalhoRepository.findById(Number(id));
+      if (!trabalho) {
+        res.status(404).json({ message: "Trabalho não encontrado" });
         return;
       }
-      res.status(200).json(aviso);
-    } catch (error: any) {
-      res.status(400).json({ message: error.message });
-    }
-  }
-
-  async findAll(req: Request, res: Response) {
-    try {
-      const { authorization } = req.headers;
-      if (!authorization) {
-        throw new Error("Não autorizado");
-      }
-      const avisos = await this.avisoRepository.findAll();
-      if (!avisos) {
-        throw new Error("Nenhum aviso encontrado");
-      }
-      res.status(200).json(avisos);
+      res.status(200).json(trabalho);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -66,13 +65,16 @@ export default class AvisoController {
       }
       const { id } = req.params;
       if (!id) {
-        throw new Error("ID do aviso não fornecido");
+        throw new Error("ID do trabalho não fornecido");
       }
-      const aviso = await this.avisoRepository.update(Number(id), req.body);
-      if (!aviso) {
-        throw new Error("Erro ao atualizar o aviso");
+      const trabalho = await this.trabalhoRepository.update(
+        Number(id),
+        req.body
+      );
+      if (!trabalho) {
+        throw new Error("Erro ao atualizar o trabalho");
       }
-      res.status(200).json(aviso);
+      res.status(200).json(trabalho);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }
@@ -86,9 +88,9 @@ export default class AvisoController {
       }
       const { id } = req.params;
       if (!id) {
-        throw new Error("ID do aviso não fornecido");
+        throw new Error("ID do trabalho não fornecido");
       }
-      await this.avisoRepository.delete(Number(id));
+      await this.trabalhoRepository.delete(Number(id));
       res.status(204).send();
     } catch (error: any) {
       res.status(400).json({ message: error.message });
