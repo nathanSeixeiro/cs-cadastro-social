@@ -12,48 +12,83 @@ datasource db {
 // npx prisma generate
 
 model Aviso {
-  id         Int      @id @default(autoincrement())
-  titulo     String
-  descricao  String
-  quadroAviso QuadroAviso? @relation(fields: [quadroAvisoId], references: [id]) // um aviso pertence a um quadro de aviso
+  id            Int          @id @default(autoincrement())
+  titulo        String
+  descricao     String
   quadroAvisoId Int?
-  createdAt  DateTime @default(now())
+  createdAt     DateTime     @default(now())
+  quadroAviso   QuadroAviso? @relation(fields: [quadroAvisoId], references: [id]) // um aviso pertence a um quadro de aviso
 }
 
 model Usuario {
-  id        Int       @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   nome      String
   telefone  String
   email     String
   senha     String
   ativo     Boolean
-  // assitidos   Assistido[] // um usuario pode ter varios assistidos
+  assitidos Assistido[] // um usuario pode ter varios assistidos
 }
-
-// model Assistido {
-//   id               Int      @id @default(autoincrement())
-//   nome             String
-//   data_nascimento  DateTime
-//   endereco         String
-//   sexo             String
-//   situacao         String
-//   familiar_proximo Boolean
-//   estado_civil     String
-//   filhos           String[]
-//   trabalho         String[]
-//   motivo_saiu      String
-//   existe_contato   Boolean
-//   ajuda            String[]
-//   descricao        String
-//   informacao_medica String
-//   usuarioId        Int?
-//   usuario          Usuario? @relation(fields: [usuarioId], references: [id]) // um assistido pertence a um usuario
-// }
 
 // podemos pensar em separar os quadros de aviso em reuniões, necessitades ou gerais
 model QuadroAviso {
-  id           Int      @id @default(autoincrement())
-  avisos       Aviso[] // um quadro de aviso pode ter varios avisos 
-  // necessidades String[] 
+  id     Int     @id @default(autoincrement())
+  avisos Aviso[] // um quadro de aviso pode ter varios avisos
 }
 
+model Assistido {
+  id               Int        @id @default(autoincrement())
+  nome             String
+  data_nascimento  DateTime
+  sexo             String
+  situacao         String
+  familiar_proximo Boolean
+  estado_civil     String
+  motivo_saiu      String
+  filhos           Boolean
+  existe_contato   Boolean
+  descricao        String
+  ativo            Boolean
+  usuarioId        Int?
+  usuario          Usuario?   @relation(fields: [usuarioId], references: [id])
+  endereco         Endereco[]
+  trabalhos        Trabalho[]
+  // informacoes_medicas Informacao_medica[]
+  familia          Familia[]
+}
+
+model Trabalho {
+  id          Int        @id @default(autoincrement())
+  profissao   String
+  atual       Boolean
+  assistidoId Int?
+  assistido   Assistido? @relation(fields: [assistidoId], references: [id])
+}
+
+model Informacao_medica {
+  id          Int    @id @default(autoincrement())
+  descricao   String
+  assistidoId Int?
+  // assistido   Assistido? @relation(fields: [assistidoId], references: [id])
+}
+
+model Endereco {
+  id          Int        @id @default(autoincrement())
+  rua         String
+  numero      String
+  bairro      String
+  cidade      String
+  estado      String
+  cep         String
+  assistidoId Int?
+  assistido   Assistido? @relation(fields: [assistidoId], references: [id])
+}
+
+model Familia {
+  id          Int        @id @default(autoincrement())
+  nome        String
+  parentesco  String
+  telefone    String
+  assistidoId Int?
+  assistido   Assistido? @relation(fields: [assistidoId], references: [id])
+}
