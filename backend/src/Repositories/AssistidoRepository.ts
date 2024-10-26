@@ -1,49 +1,66 @@
-// import Endereco from "../Models/Endereco";
-// import Assistido from "../Models/Assistido";
-// import IAssistidoRepository from "../interfaces/assistido-repository-interface";
-// import { prisma } from "../utils/prisma"
-// import Trabalho from "../Models/Trabalho";
-// import Familia from "../Models/Familia";
-// import InformacaoMedica from "../Models/InformacaoMedica";
+import { prisma } from "../utils/prisma";
+import Assistido from "../Models/Assistido";
+import IAssistidoRepository from "../interfaces/assistido-repository-interface";
+import SituacaoAssistidoEnum from "@/Models/SituacaoEnum";
 
-// class AssistidoRepository implements IAssistidoRepository {
-//     async create(assistido: Assistido): Promise<object> {
-//         const newAssistido = await prisma.assistido.create({
-//             data: {
+class AssistidoRepository implements IAssistidoRepository {
+  async create(assistido: Assistido): Promise<object> {
+    const newAssistido = await prisma.assistido.create({
+      data: {
+        nome: assistido.nome,
+        data_nascimento: assistido.data_nascimento,
+        sexo: assistido.sexo,
+        situacao: assistido.situacao,
+        familiar_proximo: assistido.familiar_proximo,
+        estado_civil: assistido.estado_civil,
+        motivo_saiu: assistido.motivo_saiu,
+        filhos: assistido.filhos,
+        existe_contato: assistido.existe_contato,
+        descricao: assistido.descricao,
+        ativo: assistido.ativo,
+        usuarioId: assistido.usuarioId,
+      },
+    });
+    return newAssistido;
+  }
 
+  async findById(id: number): Promise<Assistido | null> {
+    const assistido = await prisma.assistido.findUnique({
+      where: { id },
+    });
+    return assistido as Assistido | null;
+  }
 
-//             }
-//         });
-//         return newAssistido
-//     }
+  async findAll(): Promise<Assistido[]> {
+    const assistidos = await prisma.assistido.findMany();
+    return assistidos as Assistido[];
+  }
 
-//     async findById(id: number): Promise<Assistido | null> {
-//         const assistido = await prisma.assistido.findUnique({
-//             where: { id },
-//         });
-//         return assistido as Assistido | null;
-//     };
+  async update(id: number): Promise<object> {
+    const assistido = await prisma.assistido.findUnique({
+      where: { id },
+      include: {
+        trabalhos: true,
+        familia: true,
+      },
+    });
+    if (!assistido) {
+      throw new Error("Assistido nao encontrado!");
+    }
+    return assistido;
+  }
 
-//     async findAll(): Promise<Assistido[]> {
-//         const assistidos = await prisma.assistido.findMany();
-//         return assistidos;
-//     }
+  async updateStatus(id: number, status: SituacaoAssistidoEnum): Promise<void> {
+    const assistido = await prisma.assistido.update({
+      where: { id },
+      data: {
+        situacao: status,
+      },
+    });
+    if (!assistido) {
+      throw new Error("Assistido nao encontrado!");
+    }
+  }
+}
 
-//     async updateState(id: number, assistido: Assistido): Promise<[Assistido, Endereco, Trabalho, InformacaoMedica, Familia]>{
-//         const updateState = await prisma.assistido.update({
-//             where: { id },
-//             data: {
-//                 ativo: assistido.ativo
-//             }
-//         });
-//         return {
-//             ...updateState,
-//             endereco: assistido.endereco,
-//             trabalhos: assistido.trabalhos,
-//             informacoes_medicas: assistido.informacoes_medicas,
-//             familia: assistido.familia
-//         };
-//     }
-// }
-
-// export default AssistidoRepository
+export default AssistidoRepository;

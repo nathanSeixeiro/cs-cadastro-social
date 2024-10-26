@@ -2,14 +2,14 @@ import Usuario from "./Usuario";
 import Familia from "./Familia";
 import Endereco from "./Endereco";
 import Trabalho from "./Trabalho";
-import InformacaoMedica from "./InformacaoMedica";
+import SituacaoAssistidoEnum from "./SituacaoEnum";
 
 type Assistido = {
   id: number;
   nome: string;
   data_nascimento: Date;
   sexo: string;
-  situacao: string;
+  situacao: SituacaoAssistidoEnum;
   familiar_proximo: boolean;
   estado_civil: string;
   motivo_saiu: string;
@@ -20,9 +20,9 @@ type Assistido = {
   usuarioId?: number;
   usuario?: Usuario;
   endereco: Endereco[];
-  trabalhos: Trabalho[];
-  informacoes_medicas: InformacaoMedica[];
-  familia: Familia[];
+  trabalhos?: Trabalho[];
+  // informacoes_medicas?: InformacaoMedica[];
+  familia?: Familia[];
 };
 
 export default Assistido;

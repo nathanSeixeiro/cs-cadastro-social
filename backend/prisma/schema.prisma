@@ -37,24 +37,24 @@ model QuadroAviso {
 }
 
 model Assistido {
-  id                  Int                 @id @default(autoincrement())
-  nome                String
-  data_nascimento     DateTime
-  sexo                String
-  situacao            String
-  familiar_proximo    Boolean
-  estado_civil        String
-  motivo_saiu         String
-  filhos              Boolean
-  existe_contato      Boolean
-  descricao           String
-  ativo               Boolean
-  usuarioId           Int?
-  usuario             Usuario?            @relation(fields: [usuarioId], references: [id])
-  endereco            Endereco[]
-  trabalhos           Trabalho[]
-  informacoes_medicas Informacao_medica[]
-  familia             Familia[]
+  id               Int        @id @default(autoincrement())
+  nome             String
+  data_nascimento  DateTime
+  sexo             String
+  situacao         String
+  familiar_proximo Boolean
+  estado_civil     String
+  motivo_saiu      String
+  filhos           Boolean
+  existe_contato   Boolean
+  descricao        String
+  ativo            Boolean
+  usuarioId        Int?
+  usuario          Usuario?   @relation(fields: [usuarioId], references: [id])
+  endereco         Endereco[]
+  trabalhos        Trabalho[]
+  // informacoes_medicas Informacao_medica[]
+  familia          Familia[]
 }
 
 model Trabalho {
@@ -66,10 +66,10 @@ model Trabalho {
 }
 
 model Informacao_medica {
-  id          Int        @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   descricao   String
   assistidoId Int?
-  assistido   Assistido? @relation(fields: [assistidoId], references: [id])
+  // assistido   Assistido? @relation(fields: [assistidoId], references: [id])
 }
 
 model Endereco {
