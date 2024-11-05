@@ -5,29 +5,42 @@ import { InputLabel } from "../components/internals/fieldSets/inputLabel";
 import { InputLabelPassword } from "@/components/internals/fieldSets/inputLabelPassword";
 import { CheckboxLabel } from "@/components/internals/fieldSets/checkboxLabel";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const SignIn = () => {
-  const [mensagem, setMensagem] = useState(false);
-  function Logar(event: React.FormEvent<HTMLFormElement>) {
+  async function Logar(event: React.FormEvent<HTMLFormElement>) {
     event?.preventDefault();
-    setMensagem((prev) => !prev);
 
-    if (mensagem) {
-      toast.success("Bem-vindo!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
+    const email = event.currentTarget.email.value;
+    const senha = event.currentTarget.senha.value;
+
+    try {
+      await axios.post("http://localhost:3000/Auth/", {
+        email: email,
+        senha: senha,
+      })
+      .then((res) => {
+        toast.success("Bem-vindo!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        sessionStorage.setItem("token", res.data.token)
+        sessionStorage.setItem("usuarioId", res.data.usuario.id)
+        setTimeout(() => {
+          location.href = "/home";
+        }, 3000);
       });
-      location.href = "/home"
-    } else {
+
+  
+    } catch (error) {
       toast.error("Credenciais Inválidas", {
         position: "top-right",
         autoClose: 5000,
@@ -37,7 +50,7 @@ const SignIn = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        transition: Bounce
+        transition: Bounce,
       });
     }
   }
@@ -60,6 +73,7 @@ const SignIn = () => {
           </div>
         </div>
         <form onSubmit={Logar} className="grid gap-5 min-w-[300px] max-w-full">
+          
           <InputLabel
             label="Email"
             type="email"
@@ -69,14 +83,16 @@ const SignIn = () => {
           />
 
           <InputLabelPassword 
-            label="Senha" 
-            name="senha" 
-            placehoder="" 
-          />
+          label="Senha" 
+          name="senha"
+          placehoder="" />
           <div className="w-full flex justify-between items-center">
-            <CheckboxLabel required text="Lembrar de mim" name="terms" />
+            <CheckboxLabel text="Lembrar de mim" name="terms" />
 
-            <Link className="text-[14px] font-semibold text-[#0A1576]"to="/esqueci-a-senha">
+            <Link
+              className="text-[14px] font-semibold text-[#0A1576]"
+              to="/esqueci-a-senha"
+            >
               Esqueci a senha
             </Link>
           </div>
@@ -87,13 +103,15 @@ const SignIn = () => {
             <img className="mr-2" src={googleLogo} />
             Entrar com o Google
           </Button>
-          <Link to="/signup" className="text-sm text-[#344054] font-normal hover:text-[#0A1576] hover:underline">
+          <Link
+            to="/signup"
+            className="text-sm text-[#344054] font-normal hover:text-[#0A1576] hover:underline"
+          >
             Ainda não tem conta?
             <span className="text-[#0A1576] ml-1 font-medium">Inscreva-se</span>
           </Link>
         </form>
       </section>
-
     </>
   );
 };

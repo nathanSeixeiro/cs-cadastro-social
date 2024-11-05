@@ -1,7 +1,7 @@
 enum SituacaoAssistidoEnum {
-  RUA = 'na rua',
-  RECUPERACAO = 'em recuperacao',
-  RECUPERADO = 'recuperado',
+  RUA = 'Na rua',
+  RECUPERACAO = 'Em recuperação',
+  RECUPERADO = 'Recuperado',
 }
 
 export default SituacaoAssistidoEnum

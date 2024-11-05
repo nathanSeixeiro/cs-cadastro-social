@@ -1,5 +1,6 @@
 import express from "express";
 import * as bodyParser from "body-parser";
+import cors from "cors";
 
 import "./utils/cron";
 import MainRouter from "./routes/MainRouter";
@@ -9,6 +10,7 @@ export default class App {
 
   constructor() {
     this.httpServer = express();
+     this.httpServer.use(cors());
     this.httpServer.use(bodyParser.json());
     // this.httpServer.use(bodyParser.urlencoded({ extended: true }));
 

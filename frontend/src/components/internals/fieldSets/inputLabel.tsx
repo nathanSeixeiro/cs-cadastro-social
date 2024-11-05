@@ -18,7 +18,7 @@ export function InputLabel({label, placehoder, className, name, value, type, onC
   return (
     <fieldset className="grid w-full max-w-sm items-center justify-items-start gap-1.5">
       <Label htmlFor={name}>{label}</Label>
-      <Input required={required} name={name} className={className} onBlur={onBlur} value={value} type={type} readOnly={readonly} onChange={onChange} id="email" placeholder={placehoder} />
+      <Input id={name} required={required} name={name} className={className} onBlur={onBlur} value={value} type={type} readOnly={readonly} onChange={onChange} placeholder={placehoder} />
     </fieldset>
   )
 }

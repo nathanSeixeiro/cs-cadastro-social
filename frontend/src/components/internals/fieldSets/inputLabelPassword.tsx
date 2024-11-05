@@ -8,7 +8,11 @@ interface InputLabelProps {
   name: string;
 }
 
-export function InputLabelPassword({label,placehoder,name,}: InputLabelProps) {
+export function InputLabelPassword({
+  label,
+  placehoder,
+  name,
+}: InputLabelProps) {
   const [showed, setShowed] = useState(false);
 
   const toggleShow = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -25,7 +29,7 @@ export function InputLabelPassword({label,placehoder,name,}: InputLabelProps) {
             className="border-r-0 rounded-r-none"
             name={name}
             type={showed ? "text" : "password"}
-            id="email"
+            id="senha"
             placeholder={placehoder}
             required
           />

@@ -3,7 +3,7 @@ interface CheckboxProps{
     name: string;
     text: string;
     boldText?: string;
-    required: boolean;
+    required?: boolean;
     
 }
 export function CheckboxLabel({name, text, boldText, required}: CheckboxProps) {

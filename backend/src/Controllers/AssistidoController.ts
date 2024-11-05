@@ -49,11 +49,15 @@ export default class AssistidoController {
     async updateState(req: Request, res: Response) {
         try {
             const { id } = req.params;
+            console.log(id)
+            console.log(req.body)
             if (!id) {
                 throw new Error("ID do aviso não fornecido");
             }
-            const assistido = await this.assistidoRepository.updateState(Number(id), req.body);
-            if (!assistido) {
+
+            const assistido = await this.assistidoRepository.updateStatus(Number(id), req.body.situacao);
+
+            if (assistido != null) {
                 throw new Error("Erro ao atualizar o status do assistido");
             }
             res.status(200).json(assistido);

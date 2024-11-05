@@ -3,28 +3,57 @@ import { InputLabel } from "../components/internals/fieldSets/inputLabel";
 import { InputLabelPassword } from "@/components/internals/fieldSets/inputLabelPassword";
 import { CheckboxLabel } from "@/components/internals/fieldSets/checkboxLabel";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const SignUp = () => {
-  const [mensagem, setMensagem] = useState(false);
-  function Logar(event: React.FormEvent<HTMLFormElement>) {
+  async function Cadastrar(event: React.FormEvent<HTMLFormElement>) {
     event?.preventDefault();
-    setMensagem((prev) => !prev);
 
-    if (mensagem) {
-      toast.success("Bem-vindo!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
+    const nome = event.currentTarget.nome.value;
+    const email = event.currentTarget.email.value;
+    const telefone = event.currentTarget.telefone.value;
+    const senha = event.currentTarget.senha.value;
+
+    try {
+      await axios.post("http://localhost:3000/Usuario/", {
+        nome: nome,
+        email: email,
+        telefone: telefone,
+        senha: senha
+      })
+      .then((res) => {
+        toast.success("Cadastro realizado com Sucesso, Seja Bem-vindo!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+
+        setTimeout(() => {
+          location.href = "/";
+        }, 3000);
+
+      }).catch(() => {
+        toast.error("Dados inválidos tente novamente!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       });
-    } else {
+    } catch (error)
+    {
       toast.error("Credenciais Inválidas", {
         position: "top-right",
         autoClose: 5000,
@@ -38,6 +67,7 @@ const SignUp = () => {
       });
     }
   }
+  
 
   return (
     <>
@@ -52,11 +82,11 @@ const SignUp = () => {
           </p>
         </div>
 
-        <form onSubmit={Logar} className="grid gap-5 min-w-[300px] max-w-full">
+        <form onSubmit={Cadastrar} className="grid gap-5 min-w-[300px] max-w-full">
           <InputLabel
             label="Nome"
-            type="nome"
-            name="text"
+            type="text"
+            name="nome"
             placehoder="John Doe"
             required
           />
