@@ -108,7 +108,7 @@ const AssistRegister = () => {
   };
   return (
     <>
-          <ToastContainer stacked className="text-start" />
+      <ToastContainer stacked className="text-start" />
       <div className="h-dvh overflow-auto w-full pl-[80px] pt-[3%] pr-[3%] flex flex-col justify-items-end text-end">
         <h1 className="font-bold text-3xl mb-2">Novo Cadastro</h1>
         <form onSubmit={RegisterAssists} className="flex flex-col p-2 gap-3">

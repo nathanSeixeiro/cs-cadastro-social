@@ -12,8 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { ISelectLabel } from "@/components/internals/fieldSets/selectLabel";
 import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
@@ -56,26 +54,53 @@ const AssistList = () => {
     event?.preventDefault();
     const situacao = event.currentTarget.situacao.value;
    
-    axios.put(`http://localhost:3000/Assistidos/update/${id}`, 
-      {
-        situacao: situacao
-      }).then(() => {
-        toast.success("Situação alterada com sucesso", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
+    try {
+      axios.put(`http://localhost:3000/Assistidos/update/${id}`, 
+        {
+          situacao: situacao
+        }).then(() => {
+          toast.success("Situação alterada com sucesso", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+  
+          setTimeout(() => {
+            location.reload()
+          }, 3000);
+        }) .catch(() => {
+          toast.error("Dados inválidos tente novamente!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         });
-
-        setTimeout(() => {
-          location.reload()
-        }, 3000);
-      })
+    } catch (error) {
+      toast.error("Dados inválidos tente novamente!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+    
   }
 
   return (
