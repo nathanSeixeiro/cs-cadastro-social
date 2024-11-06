@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 interface InputLabelProps{
   label: string,
   placehoder?: string
-  value?: string
+  value?: string | number
   name: string
   type: string
   required: boolean

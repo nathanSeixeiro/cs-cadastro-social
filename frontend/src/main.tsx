@@ -1,4 +1,4 @@
-import { StrictMode, useState } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "react-toastify/dist/ReactToastify.css";
 import "./global.css";
@@ -11,7 +11,9 @@ import AssistList from "./pages/Assists/AssistList";
 import AssistRegister from "./pages/Assists/AssistRegister";
 import Notify from "./pages/Notifys/Notify";
 import Advices from "./pages/Advices/Advices";
-import AdvicesRegister from "./pages/Advices/AdvicesRegister"; "./pages/Advices/Advices";
+import AdvicesRegister from "./pages/Advices/AdvicesRegister";
+import BirthdaysList from "./pages/Birhtdays/BirthdaysList";
+
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/advices-register",
     element: <AdvicesRegister />,
+  },
+  {
+    path: "/birthdays-list",
+    element: <BirthdaysList />,
   }
 ]);
 

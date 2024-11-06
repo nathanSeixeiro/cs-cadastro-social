@@ -1,5 +1,4 @@
 import NotifyListIcon from '@/assets/notify-list-icon.svg'
-import { Plus } from 'lucide-react';
 const Notify = () => {
   return (
     <>

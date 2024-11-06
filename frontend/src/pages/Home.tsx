@@ -37,7 +37,7 @@ const Home = () => {
               <DoughnutGraph />
             </div>
           </article>
-          <IconButton className="p-6 rounded-xl" text="Aniversariante do Mês" icon={Calendar} />
+          <IconButton className="p-6 rounded-xl" text="Aniversariante do Mês" onClick={() => navigate("/birthdays-list")} icon={Calendar} />
           <Button className="p-6 rounded-xl" onClick={() => navigate("/assist-register")}>Novo Cadastro</Button>
         </div>
       </section>
