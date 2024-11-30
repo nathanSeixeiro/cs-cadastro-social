@@ -87,7 +87,7 @@ const SignUp = () => {
             label="Nome"
             type="text"
             name="nome"
-            placehoder="John Doe"
+            placehoder="Antonio Silva"
             required
           />
           <InputLabel

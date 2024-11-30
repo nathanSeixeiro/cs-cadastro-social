@@ -39,7 +39,7 @@ const SignIn = () => {
         }, 3000);
       });
 
-  
+
     } catch (error) {
       toast.error("Credenciais Inválidas", {
         position: "top-right",
@@ -73,17 +73,17 @@ const SignIn = () => {
           </div>
         </div>
         <form onSubmit={Logar} className="grid gap-5 min-w-[300px] max-w-full">
-          
+
           <InputLabel
             label="Email"
             type="email"
             name="email"
-            placehoder="Ex: johndoe@email.com"
+            placehoder="Ex: antonio@email.com"
             required
           />
 
-          <InputLabelPassword 
-          label="Senha" 
+          <InputLabelPassword
+          label="Senha"
           name="senha"
           placehoder="" />
           <div className="w-full flex justify-between items-center">
