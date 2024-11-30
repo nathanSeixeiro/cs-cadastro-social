@@ -67,7 +67,7 @@ const SignUp = () => {
       });
     }
   }
-  
+
 
   return (
     <>
@@ -101,7 +101,7 @@ const SignUp = () => {
             label="Email"
             type="email"
             name="email"
-            placehoder="Ex: johndoe@email.com"
+            placehoder="Ex: antonio@email.com"
             required
           />
 
@@ -116,8 +116,8 @@ const SignUp = () => {
             to="/"
             className="text-sm text-[#344054] font-normal hover:text-[#0A1576] hover:underline"
           >
-            Já não tem conta?
-            <span className="text-[#0A1576] font-medium ml-1">Faça Login</span>
+            Já tem uma conta?
+            <span className="text-[#0A1576] font-medium ml-1">Entrar</span>
           </Link>
         </form>
       </section>
