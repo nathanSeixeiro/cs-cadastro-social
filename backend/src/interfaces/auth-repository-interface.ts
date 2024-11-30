@@ -1,8 +1,6 @@
-
-
 interface IAuthRepository {
   createToken(email: string): Promise<string>;
-  logout(): Promise<void>;
+  logout(token: string): Promise<void>;
 }
 
 export default IAuthRepository;

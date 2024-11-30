@@ -14,7 +14,6 @@ const SignIn = () => {
 
     const email = event.currentTarget.email.value;
     const senha = event.currentTarget.senha.value;
-
     try {
       await axios.post("http://localhost:3000/Auth/", {
         email: email,
@@ -39,8 +38,8 @@ const SignIn = () => {
         }, 3000);
       });
 
-
     } catch (error) {
+      console.log(error);
       toast.error("Credenciais Inválidas", {
         position: "top-right",
         autoClose: 5000,
