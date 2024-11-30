@@ -22,7 +22,7 @@ const SignUp = () => {
         telefone: telefone,
         senha: senha
       })
-      .then((res) => {
+      .then((_res) => {
         toast.success("Cadastro realizado com Sucesso, Seja Bem-vindo!", {
           position: "top-right",
           autoClose: 5000,
