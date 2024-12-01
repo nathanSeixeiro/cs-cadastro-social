@@ -9,12 +9,11 @@ const AssistRegister = () => {
   const [age, setAge] = useState(0);
   const [date, setDate] = useState("");
 
-  async function RegisterAssists(event: React.FormEvent<HTMLFormElement>) 
+  async function RegisterAssists(event: React.FormEvent<HTMLFormElement>)
   {
     event?.preventDefault();
 
     const nome = event.currentTarget.nome.value;
-    // const apelido = event.currentTarget.apelido.value;apelido
     const dataNascimento = new Date(event.currentTarget.dataNascimento.value).toISOString();
     const sexo = event.currentTarget.sexo.value;
     const estadoCivil = event.currentTarget.estadoCivil.value;
@@ -24,7 +23,7 @@ const AssistRegister = () => {
     const descricao = event.currentTarget.local.value;
     const motivo = event.currentTarget.motivo.value;
     const usuarioId = parseInt(sessionStorage.getItem("usuarioId") as string);
-    
+
     try {
       await axios.post("http://localhost:3000/Assistidos/", {
         nome: nome,
@@ -172,7 +171,6 @@ const AssistRegister = () => {
             childs={[
               { text: "Masculino", value: "Masculino" },
               { text: "Feminino", value: "Feminino" },
-              { text: "Outro", value: "Outro" }
             ]}
           />
           <InputLabel

@@ -9,7 +9,7 @@ const DoughnutGraph = () => {
     labels: ["62% Na rua", "13% Em recuperação", "23% Recuperados"],
     datasets: [
       {
-        label: "My First Dataset",
+        // label: "My First Dataset",
         data: [300, 50, 100],
         backgroundColor: ["#1B59F8", "#5E8BFF", "#DDDDDD"],
         hoverOffset: 4,
