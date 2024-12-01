@@ -90,7 +90,7 @@ const SignIn = () => {
 
             <Link
               className="text-[14px] font-semibold text-[#0A1576]"
-              to="/esqueci-a-senha"
+              to="/forgot-password"
             >
               Esqueci a senha
             </Link>

@@ -13,7 +13,7 @@ import Notify from "./pages/Notifys/Notify";
 import Advices from "./pages/Advices/Advices";
 import AdvicesRegister from "./pages/Advices/AdvicesRegister";
 import BirthdaysList from "./pages/Birhtdays/BirthdaysList";
-
+import ForgotPassword from "./pages/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +23,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />, // Tela padrão de "esqueci a senha"
+  },
+  {
+    path: "/forgot-password/:id", // Rota dinâmica para o caso com ID
+    element: <ForgotPassword />, // Pode usar o mesmo componente ou um diferente se necessário
   },
   {
     path: "/home",
@@ -51,7 +59,7 @@ const router = createBrowserRouter([
   {
     path: "/birthdays-list",
     element: <BirthdaysList />,
-  }
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(
