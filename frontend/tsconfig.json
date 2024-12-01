@@ -6,6 +6,8 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "lib": ["ESNext", "DOM"], // Inclui APIs do DOM e do navegador
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"]
     }

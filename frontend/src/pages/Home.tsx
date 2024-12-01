@@ -3,10 +3,12 @@ import DoughnutGraph from "@/components/internals/charts/pieChart";
 import { Button } from "@/components/ui/button";
 import Calendar from "@/assets/calendar.svg";
 import { useNavigate } from "react-router-dom";
+// import AddToHomeScreen from "@/components/ui/AddToHomeScreen";
 const Home = () => {
   const navigate = useNavigate();
   return (
     <>
+      {/* <AddToHomeScreen /> */}
       <section className="h-dvh overflow-auto w-full pl-[80px] pt-[3%] pr-[3%] grid justify-items-end  grid-rows-[85px_auto]">
         <h1 className="font-bold text-3xl mb-2">Dashboard</h1>
         <div className="min-w-[90%] flex flex-col gap-2 ">
