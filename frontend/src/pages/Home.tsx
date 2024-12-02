@@ -3,9 +3,25 @@ import DoughnutGraph from "@/components/internals/charts/pieChart";
 import { Button } from "@/components/ui/button";
 import Calendar from "@/assets/calendar.svg";
 import { useNavigate } from "react-router-dom";
+import { Assistido } from "./Assists/AssistList";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // import AddToHomeScreen from "@/components/ui/AddToHomeScreen";
 const Home = () => {
   const navigate = useNavigate();
+  const [assistidos, setAssistidos] = useState<Assistido[]>([]);
+
+  useEffect(() => {
+    const buscarAssistidos = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/Assistidos/");
+
+      } catch (error) {
+
+      }
+    };
+    }, []);
+
   return (
     <>
       {/* <AddToHomeScreen /> */}
