@@ -17,7 +17,7 @@ import axios from "axios";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { InputLabel } from "@/components/internals/fieldSets/inputLabel";
 
-interface Assistido {
+export interface Assistido {
   id: number;
   nome: string;
   data_nascimento: string;
@@ -39,9 +39,7 @@ const AssistList = () => {
   const [searchText, setSearchText] = useState("");
   const [situacaoFilter, setSituacaoFilter] = useState<string | null>(null);
   const [idadeFilter, setIdadeFilter] = useState<number>(0);
-  const [assistidosFiltrados, setAssistidosFiltrados] = useState<Assistido[]>(
-    []
-  );
+  const [assistidosFiltrados, setAssistidosFiltrados] = useState<Assistido[]>([]);
 
   useEffect(() => {
     const listarAssistidos = async () => {
@@ -111,6 +109,7 @@ const AssistList = () => {
       setTimeout(() => {
         location.reload();
       }, 3000);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Dados inválidos, tente novamente!", {
         position: "top-right",
@@ -186,7 +185,11 @@ const AssistList = () => {
                   />
                   <DialogFooter>
                     {assistidosFiltrados.length != assistidos.length && (
-                      <Button type="button" onClick={() => setAssistidosFiltrados(assistidos)} variant={"destructive"}>
+                      <Button
+                        type="button"
+                        onClick={() => setAssistidosFiltrados(assistidos)}
+                        variant={"destructive"}
+                      >
                         Limpar Filtros
                       </Button>
                     )}
