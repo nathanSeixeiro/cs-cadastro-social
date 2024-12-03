@@ -109,6 +109,7 @@ const AssistList = () => {
       setTimeout(() => {
         location.reload();
       }, 3000);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Dados inválidos, tente novamente!", {
         position: "top-right",

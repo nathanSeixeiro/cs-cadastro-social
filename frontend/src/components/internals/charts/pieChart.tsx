@@ -1,16 +1,35 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJs, Tooltip, Legend, ArcElement } from "chart.js";
+import { Assistido } from "@/pages/Assists/AssistList";
+
+type ChartAssistidos = {
+  assistidos: Assistido[];
+}
 
 ChartJs.register(Tooltip, Legend, ArcElement);
 
-const DoughnutGraph = () => {
+const DoughnutGraph = ({assistidos}: ChartAssistidos) => {
+
+  const totalAssistidos = assistidos.length;
+  const calculatePercentage = (total: number) => {
+    return ((total / totalAssistidos) * 100).toFixed(0);
+  }
+  const totalNaRua = () => {
+    return calculatePercentage(assistidos.filter((assistido: Assistido) => assistido.situacao === "Na rua").length);
+  };
+  const totalRecuperados = () => {
+    return calculatePercentage(assistidos.filter((assistido: Assistido) => assistido.situacao === "Recuperado").length);
+  }
+  const totalRecuperacao = () => {
+    return calculatePercentage(assistidos.filter((assistido: Assistido) => assistido.situacao === "Em recuperação").length);
+  }
 
   const data = {
-    labels: ["62% Na rua", "13% Em recuperação", "23% Recuperados"],
+    labels: [`${totalNaRua()}% Na rua`, `${totalRecuperacao()}% Em recuperação`, `${totalRecuperados()}% Recuperados`],
     datasets: [
       {
         // label: "My First Dataset",
-        data: [300, 50, 100],
+        data: [totalNaRua(), totalRecuperacao(), totalRecuperados()],
         backgroundColor: ["#1B59F8", "#5E8BFF", "#DDDDDD"],
         hoverOffset: 4,
         spacing: 4,
