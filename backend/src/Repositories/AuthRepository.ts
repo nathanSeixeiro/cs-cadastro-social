@@ -7,7 +7,7 @@ configDotenv();
 export default class AuthRepository implements IAuthRepository {
   private _secret = process.env.JWT_SECRET;
 
-  async createToken(email: string): Promise<string> {
+  createToken(email: string): string {
     if (!this._secret) {
       throw new Error("JWT_SECRET não está configurado.");
     }
@@ -15,7 +15,7 @@ export default class AuthRepository implements IAuthRepository {
     return token;
   }
 
-  async createPasswordResetToken(userId: number): Promise<string> {
+  createPasswordResetToken(userId: number): string {
     if (!this._secret) {
       throw new Error("JWT secret is not defined.");
     }
@@ -23,7 +23,7 @@ export default class AuthRepository implements IAuthRepository {
     return token;
   }
 
-  async verifyToken(token: string): Promise<any> {
+  verifyToken(token: string): unknown {
     try {
       if (!this._secret) {
         throw new Error("JWT secret is not defined.");
