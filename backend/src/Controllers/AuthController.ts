@@ -5,6 +5,7 @@ import Usuario from "./../Models/Usuario";
 import { comparePassword, hashPassword } from "../utils/bycript"; // Adicione hashPassword para redefinir senha
 import IUsuarioRepository from "../interfaces/usuario-repository-interface";
 import IAuthRepository from "../interfaces/auth-repository-interface";
+import { sendEmail } from "@/utils/send-email";
 
 type RequestBody = {
   email?: string;
@@ -75,9 +76,14 @@ export default class AuthController {
         usuario.id
       );
       // Aqui você enviaria o resetToken por email
+      const emailSent = await sendEmail(email, resetToken);
+      if (!emailSent) {
+        return res.status(500).json({ message: "Erro ao enviar o email" });
+      }
       res.status(200).json({
         message: "Token de redefinição gerado",
-        token: resetToken, // Remova isso em produção para não expor o token
+        // token: resetToken, // Remova isso em produção para não expor o token
+        emailSent,
       });
     } catch (error) {
       return res.status(500).json({ message: error });
