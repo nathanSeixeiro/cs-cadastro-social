@@ -2,7 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "react-toastify/dist/ReactToastify.css";
 import "./global.css";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
