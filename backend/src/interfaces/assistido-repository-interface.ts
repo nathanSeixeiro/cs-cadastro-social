@@ -7,6 +7,7 @@ interface IAssistidoRepository {
   findAll(): Promise<Assistido[]>;
   update(id: number): Promise<object>;
   updateStatus(id: number, status: SituacaoAssistidoEnum): Promise<void>;
+  uploadPhoto(id: number, path: string): Promise<void>;
 }
 
 export default IAssistidoRepository;

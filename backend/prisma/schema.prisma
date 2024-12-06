@@ -38,6 +38,7 @@ model QuadroAviso {
 
 model Assistido {
   id               Int        @id @default(autoincrement())
+  foto             String?
   nome             String
   data_nascimento  DateTime
   sexo             String

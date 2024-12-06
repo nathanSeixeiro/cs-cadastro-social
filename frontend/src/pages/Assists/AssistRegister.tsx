@@ -1,6 +1,12 @@
 import { InputLabel } from "@/components/internals/fieldSets/inputLabel";
 import { ISelectLabel } from "@/components/internals/fieldSets/selectLabel";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog, DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import axios from "axios";
 import { useState } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
@@ -8,70 +14,99 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 const AssistRegister = () => {
   const [age, setAge] = useState(0);
   const [date, setDate] = useState("");
+  const [idAssistido, setIdAssitido] = useState(0);
+  const [modalFoto, setModalFoto] = useState(false);
 
-  async function RegisterAssists(event: React.FormEvent<HTMLFormElement>)
-  {
+  async function subirFoto(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const fileInput = event.currentTarget.foto.files[0];
+
+    const formData = new FormData();
+    formData.append("photo", fileInput);
+
+    try {
+      await axios
+        .post(`http://localhost:3000/Assistidos/${idAssistido}/upload-photo`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(() => {
+          toast.success("Cadastro realizado com Sucesso", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+
+          setTimeout(() => {
+            location.href = "/assist-list";
+          }, 3000);
+        });
+      // setMessage(response.data.message);
+    } catch (error) {
+      // setMessage('Erro ao enviar o arquivo.');
+      console.error(error);
+    }
+  }
+
+  async function RegisterAssists(event: React.FormEvent<HTMLFormElement>) {
     event?.preventDefault();
 
     const nome = event.currentTarget.nome.value;
-    const dataNascimento = new Date(event.currentTarget.dataNascimento.value).toISOString();
+    const dataNascimento = new Date(
+      event.currentTarget.dataNascimento.value
+    ).toISOString();
     const sexo = event.currentTarget.sexo.value;
     const estadoCivil = event.currentTarget.estadoCivil.value;
-    const familiar = event.currentTarget.familiares.value == "Sim" ? true : false;
-    const contato = event.currentTarget.proximidade.value == "Sim" ? true : false;
+    const familiar =
+      event.currentTarget.familiares.value == "Sim" ? true : false;
+    const contato =
+      event.currentTarget.proximidade.value == "Sim" ? true : false;
     const filhos = event.currentTarget.filhos.value == "Sim" ? true : false;
     const descricao = event.currentTarget.local.value;
     const motivo = event.currentTarget.motivo.value;
     const usuarioId = parseInt(sessionStorage.getItem("usuarioId") as string);
 
     try {
-      await axios.post("http://localhost:3000/Assistidos/", {
-        nome: nome,
-        data_nascimento: dataNascimento,
-        sexo: sexo,
-        situacao: "Na rua",
-        estado_civil: estadoCivil,
-        familiar_proximo: familiar,
-        motivo_saiu: motivo,
-        filhos: filhos,
-        existe_contato: contato,
-        descricao: descricao,
-        ativo: true,
-        usuarioId: usuarioId
-      })
-      .then((res) => {
+      await axios
+        .post("http://localhost:3000/Assistidos/", {
+          nome: nome,
+          data_nascimento: dataNascimento,
+          sexo: sexo,
+          situacao: "Na rua",
+          estado_civil: estadoCivil,
+          familiar_proximo: familiar,
+          motivo_saiu: motivo,
+          filhos: filhos,
+          existe_contato: contato,
+          descricao: descricao,
+          ativo: true,
+          usuarioId: usuarioId,
+        })
+        .then((res) => {
+          setIdAssitido(res.data.id)
+          setModalFoto(!modalFoto);
 
-        toast.success("Cadastro realizado com Sucesso", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
+ 
+        })
+        .catch(() => {
+          toast.error("Dados inválidos tente novamente!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
         });
-
-        setTimeout(() => {
-          location.href = "/assist-list";
-        }, 3000);
-
-      }).catch(() => {
-        toast.error("Dados inválidos tente novamente!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-      });
-    } catch (error)
-    {
+    } catch (error) {
       toast.error("Dados inválidos tente novamente!", {
         position: "top-right",
         autoClose: 5000,
@@ -118,13 +153,7 @@ const AssistRegister = () => {
             placehoder="Ex: José Maria"
             required
           />
-          {/* <InputLabel
-            label="Apelido"
-            type="text"
-            name="apelido"
-            placehoder="Ex: Seu Zé"
-            required
-          /> */}
+
           <div className="flex gap-3">
             <InputLabel
               label="Idade"
@@ -156,7 +185,7 @@ const AssistRegister = () => {
             childs={[
               { text: "Solteiro", value: "Solteiro" },
               { text: "Casado", value: "Casado" },
-              { text: "Divorciado", value: "Divorciado" }
+              { text: "Divorciado", value: "Divorciado" },
             ]}
           />
           <ISelectLabel
@@ -187,7 +216,7 @@ const AssistRegister = () => {
             placehoder="Ex: Rua X, perto do local y"
             required
           />
-         <ISelectLabel
+          <ISelectLabel
             label="Possui Filhos?"
             name="filhos"
             placehoder="Ex: Sim"
@@ -198,10 +227,10 @@ const AssistRegister = () => {
             readonly={false}
             childs={[
               { text: "Sim", value: "Sim" },
-              { text: "Não", value: "Não" }
+              { text: "Não", value: "Não" },
             ]}
           />
-         <ISelectLabel
+          <ISelectLabel
             label="Possui Familiares?"
             name="familiares"
             placehoder="Ex: Sim"
@@ -212,7 +241,7 @@ const AssistRegister = () => {
             readonly={false}
             childs={[
               { text: "Sim", value: "Sim" },
-              { text: "Não", value: "Não" }
+              { text: "Não", value: "Não" },
             ]}
           />
           <ISelectLabel
@@ -226,11 +255,31 @@ const AssistRegister = () => {
             readonly={false}
             childs={[
               { text: "Sim", value: "Sim" },
-              { text: "Não", value: "Não" }
+              { text: "Não", value: "Não" },
             ]}
           />
-          <Button type="submit" className="p-6 rounded-xl">Salvar</Button>
+          <Button type="submit" className="p-6 rounded-xl">
+            Salvar
+          </Button>
         </form>
+        <Dialog open={modalFoto}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Foto de Pefil</DialogTitle>
+              <DialogDescription>
+                Adciione um foto para identificação do assistido
+              </DialogDescription>
+            </DialogHeader>
+            <form
+              onSubmit={(event) => subirFoto(event)}
+              className="grid gap-4 py-4"
+            >
+              <InputLabel label="Foto" required type="file" name="foto" />
+
+              <Button type="submit">Enviar</Button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );

@@ -65,4 +65,18 @@ export default class AssistidoController {
             res.status(400).json({ message: error.message });
         }
     }
+
+    async uploadPhoto(req: Request, res: Response)
+    {
+        try {
+            const { id } = req.params;
+            const filePath = `/uploads/${req.file?.filename}`;
+        
+            await this.assistidoRepository.uploadPhoto(Number(id), filePath);
+        
+            res.status(200).json({ message: "Foto enviada com sucesso", path: filePath });
+          } catch (error) {
+            res.status(500).json({ message: error });
+          }
+    }
 }

@@ -1,5 +1,9 @@
+import fs from "fs";
+import path from "path";
 import App from "./app";
 import { configDotenv } from "dotenv";
+import express from "express";
+import cors from "cors";
 
 configDotenv();
 const port = parseInt(process.env.PORT || "3000");
@@ -10,5 +14,12 @@ const server = new App()
     console.log(err);
     process.exit(1);
   });
+
+  const uploadDir = path.resolve(process.cwd(), "uploads");
+
+// Verifica se a pasta de uploads existe, caso contrário, cria
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
 
 export default server;

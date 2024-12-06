@@ -6,6 +6,7 @@ import SituacaoAssistidoEnum from "./SituacaoEnum";
 
 type Assistido = {
   id: number;
+  foto?: string;
   nome: string;
   data_nascimento: Date;
   sexo: string;

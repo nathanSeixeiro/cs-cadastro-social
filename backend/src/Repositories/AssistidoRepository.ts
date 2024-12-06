@@ -61,6 +61,24 @@ class AssistidoRepository implements IAssistidoRepository {
       throw new Error("Assistido nao encontrado!");
     }
   }
+
+  async uploadPhoto(id: number, filePath: string): Promise<void> {
+    const assistido = await prisma.assistido.findUnique({
+      where: { id },
+    });
+
+    if (!assistido) {
+      throw new Error("Assistido nao encontrado!");
+    }
+
+    // Atualiza o campo de foto no banco
+    await prisma.assistido.update({
+      where: { id },
+      data: {
+        foto: filePath,
+      },
+    });
+  }
 }
 
 export default AssistidoRepository;
