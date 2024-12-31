@@ -321,7 +321,7 @@ async function main() {
     },
   ];
   // Inserindo assistidos no banco
-  for (let assistido of assistidos) {
+  for (const assistido of assistidos) {
     await prisma.assistido.create({
       data: assistido,
     });
@@ -334,6 +334,4 @@ main()
   .catch((e) => {
     console.error(e);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .finally(() => void prisma.$disconnect());

@@ -6,7 +6,8 @@
     "start": "tsc && node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
     "build": "tsc",
-    "format": "eslint --fix --write"
+    "format": "eslint --fix --write",
+    "seed": "ts-node-dev ./src/database/seed.ts"
   },
   "keywords": [],
   "author": "",
