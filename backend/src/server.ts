@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import fs from "fs";
 import path from "path";
 import App from "./app";
 import { configDotenv } from "dotenv";
-import express from "express";
-import cors from "cors";
 
 configDotenv();
 const port = parseInt(process.env.PORT || "3000");
