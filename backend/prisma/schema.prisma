@@ -3,13 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
-
-// montar schema do banco de dados
-// npx prisma migrate dev --name nomeDaMudanca
-// npx prisma generate
 
 model Aviso {
   id            Int          @id @default(autoincrement())
@@ -17,7 +13,7 @@ model Aviso {
   descricao     String
   quadroAvisoId Int?
   createdAt     DateTime     @default(now())
-  quadroAviso   QuadroAviso? @relation(fields: [quadroAvisoId], references: [id]) // um aviso pertence a um quadro de aviso
+  quadroAviso   QuadroAviso? @relation(fields: [quadroAvisoId], references: [id])
 }
 
 model Usuario {
@@ -30,7 +26,6 @@ model Usuario {
   assitidos Assistido[] // um usuario pode ter varios assistidos
 }
 
-// podemos pensar em separar os quadros de aviso em reuniões, necessitades ou gerais
 model QuadroAviso {
   id     Int     @id @default(autoincrement())
   avisos Aviso[] // um quadro de aviso pode ter varios avisos
@@ -93,3 +88,7 @@ model Familia {
   assistidoId Int?
   assistido   Assistido? @relation(fields: [assistidoId], references: [id])
 }
+
+// montar schema do banco de dados
+// npx prisma migrate dev --name nomeDaMudanca
+// npx prisma generate
