@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Request, Response, Router } from "express";
 import AvisoController from "../Controllers/AvisoController";
 import AvisoRepository from "../Repositories/AvisoRepository";

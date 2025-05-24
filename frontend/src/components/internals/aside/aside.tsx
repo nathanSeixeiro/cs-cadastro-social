@@ -3,7 +3,7 @@ import Avatar from "@/assets/avatar.svg";
 import House from "@/assets/house.svg";
 import Box from "@/assets/box.svg";
 import Graph from "@/assets/graph.svg";
-import Search from "@/assets/search.svg";
+// import Search from "@/assets/search.svg";
 import Notify from "@/assets/notify.svg";
 import Exit from "@/assets/exit.svg";
 
