@@ -1,4 +1,4 @@
-name: Pipeline Backend - Doks
+name: Pipeline backend
 
 on:
   push:
