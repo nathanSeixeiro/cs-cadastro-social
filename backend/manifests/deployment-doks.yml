@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: cs-backend-service
+      namespace: ns-cs
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: cs-backend-service
+      strategy:
+        rollingUpdate:
+          maxSurge: 25%
+          maxUnavailable: 25%
+        type: RollingUpdate
+      template:
+        metadata:
+          labels:
+            app: cs-backend-service
+        spec:
+          containers:
+          - name: cs-backend-service
+            image: registry.digitalocean.com/first-project-doks-registry/cs-backend-service:latest
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: TZ
+                value: America/Sao_Paulo
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            volumeMounts:
+              - name: appsettings-volume
+                mountPath: /app/Settings
+            resources:
+              requests:
+                memory: "128Mi"
+                cpu: "250m"
+              limits:
+                memory: "256Mi"
+                cpu: "500m"
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+          volumes:
+            - name: appsettings-volume
+              configMap:
+                name: cmseedappsettings
+          dnsPolicy: ClusterFirst
+          imagePullSecrets:
+            - name: cs-backend-secret
+          restartPolicy: Always
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: cs-backend-service
+      namespace: ns-cs
+    spec:
+      ports:
+        - port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        app: cs-backend-service
+      sessionAffinity: None
+      type: ClusterIP
+
+  - apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: cs-backend-service
+      namespace: ns-cs
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+    spec:
+      ingressClassName: traefik
+      rules:
+        - host: csapi.web-cs.software
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: cs-backend-service
+                    port:
+                      number: 8080
+      tls:
+        - hosts:
+            - csapi.web-cs.software
+          secretName: cs-backend-tls-secret
