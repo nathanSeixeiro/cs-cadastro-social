@@ -9,7 +9,8 @@ on:
       - '.github/workflows/**'
 
 env:
-  CLUSTER_NAME: ${{ secrets.DOKS_CLUSTER_NAME }}
+  CLUSTER_NAME: first-project-doks-cluster
+  # CLUSTER_NAME: ${{ secrets.DOKS_CLUSTER_NAME }}
   IMAGE_NAME: cs-backend-service
   TAG: ${{ github.sha }}
 
