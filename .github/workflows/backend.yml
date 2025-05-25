@@ -9,6 +9,7 @@ on:
       - '.github/workflows/**'
 
 env:
+  CLUSTER_NAME: ${{ secrets.DOKS_CLUSTER_NAME }}
   IMAGE_NAME: cs-backend-service
   TAG: ${{ github.sha }}
 
@@ -74,5 +75,5 @@ jobs:
 
       - name: Update image in deployment
         run: |
-          doctl kubernetes cluster kubeconfig save ${{ secrets.DOKS_CLUSTER_NAME }}
+          doctl kubernetes cluster kubeconfig save $CLUSTER_NAME
           kubectl set image deployment/cs-backend-service cs-backend-service=registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG --namespace=ns-cs
