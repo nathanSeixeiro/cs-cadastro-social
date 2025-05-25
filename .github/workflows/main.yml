@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - homolog
+    paths:
+      - 'backend/**'
+      - '.github/workflows/main.yml'
 
 env:
   IMAGE_NAME: cs-backend-service
