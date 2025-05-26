@@ -23,12 +23,10 @@ ENV TZ=America/Sao_Paulo
 
 WORKDIR /usr/src/app
 
-# Dependências para timezone e locale
-RUN apt-get update && \
-    apt-get install -y tzdata locales && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
-    echo "pt_BR.UTF-8 UTF-8" > /etc/locale.gen && locale-gen pt_BR.UTF-8 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+# Dependência para timezone
+RUN apk add --no-cache tzdata \
+ && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
+ && echo "${TZ}" > /etc/timezone
 
 ENV LANG=pt_BR.UTF-8 \
     LANGUAGE=pt_BR:pt:en \
