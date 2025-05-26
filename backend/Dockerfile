@@ -17,7 +17,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # Etapa 2: Runtime
-FROM node:18-slim
+FROM node:18-alpine
 
 ENV TZ=America/Sao_Paulo
 
