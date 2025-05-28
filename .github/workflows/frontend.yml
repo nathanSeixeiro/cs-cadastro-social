@@ -4,13 +4,12 @@ on:
   push:
     branches:
       - homolog
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/**'
+    paths-ignore:
+      - 'backend/**'
+      - '.github/workflows/backend.yml'
 
 env:
   CLUSTER_NAME: first-project-doks-cluster
-  # CLUSTER_NAME: ${{ secrets.DOKS_CLUSTER_NAME }}
   IMAGE_NAME: cs-frontend-service
   TAG: ${{ github.sha }}
 
@@ -20,11 +19,19 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./frontend  # define onde rodar os comandos
+        working-directory: ./frontend
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -34,7 +41,7 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Build TypeScript
+      - name: Build da aplicação
         run: npm run build
 
   build-and-push:
@@ -51,13 +58,13 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Build container image
-        run: docker build -t registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG -f frontend/Dockerfile frontend
-
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 1200
 
-      - name: Push image to DigitalOcean Container Registry
+      - name: Build Docker image
+        run: docker build -t registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG -f frontend/Dockerfile frontend
+
+      - name: Push Docker image
         run: docker push registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG
 
   deploy:
