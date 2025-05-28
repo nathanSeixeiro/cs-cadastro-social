@@ -25,13 +25,13 @@ items:
         spec:
           containers:
             - name: cs-backend-service
-              image: registry.digitalocean.com/first-project-doks-registry/cs-backend-service:latest
+              image: registry.digitalocean.com/first-project-doks-registry/cs-backend-service:7ed0f9696daf23b2d52525de2a4cc736187c818d
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: America/Sao_Paulo
               ports:
-                - containerPort: 8080
+                - containerPort: 3000
                   protocol: TCP
               resources:
                 requests:
@@ -57,9 +57,9 @@ items:
       namespace: ns-cs
     spec:
       ports:
-        - port: 8080
+        - port: 3000
           protocol: TCP
-          targetPort: 8080
+          targetPort: 3000
       selector:
         app: cs-backend-service
       sessionAffinity: None
@@ -71,6 +71,7 @@ items:
       name: cs-backend-service
       namespace: ns-cs
       annotations:
+        kubernetes.io/ingress.class: traefik
         cert-manager.io/cluster-issuer: letsencrypt
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
@@ -78,7 +79,7 @@ items:
     spec:
       ingressClassName: traefik
       rules:
-        - host: api.web-cs.software
+        - host: api-cs.software
           http:
             paths:
               - path: /
@@ -87,8 +88,8 @@ items:
                   service:
                     name: cs-backend-service
                     port:
-                      number: 8080
+                      number: 3000
       tls:
         - hosts:
-            - api.web-cs.software
+            - api-cs.software
           secretName: cs-backend-tls-secret
