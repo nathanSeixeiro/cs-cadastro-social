@@ -1,7 +1,7 @@
-import { IconButton } from "@/components/internals/buttons/iconButton";
+// import { IconButton } from "@/components/internals/buttons/iconButton";
 import Gift from "@/assets/gift.svg";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+// import { Button } from "@/components/ui/button";
+// import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -22,7 +22,7 @@ interface Assistido {
 }
 
 const BirthdaysList = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [assistidos, setAssistidos] = useState<Assistido[]>([]);
 
   const aniversariantesHoje = assistidos.filter((assistido) => {
