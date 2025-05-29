@@ -27,7 +27,7 @@ const AdvicesRegister = () => {
             },
           }
         )
-        .then((f) => {
+        .then(() => {
           toast.success("Cadastro realizado com Sucesso", {
             position: "top-right",
             autoClose: 5000,
