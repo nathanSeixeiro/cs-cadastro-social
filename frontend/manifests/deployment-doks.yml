@@ -31,7 +31,7 @@ items:
                 - name: TZ
                   value: America/Sao_Paulo
               ports:
-                - containerPort: 3000
+                - containerPort: 3002
                   protocol: TCP
               resources:
                 requests:
@@ -57,9 +57,9 @@ items:
       namespace: ns-cs
     spec:
       ports:
-        - port: 3000
+        - port: 3002
           protocol: TCP
-          targetPort: 3000
+          targetPort: 3002
       selector:
         app: cs-frontend-service
       sessionAffinity: None
@@ -88,7 +88,7 @@ items:
                   service:
                     name: cs-frontend-service
                     port:
-                      number: 3000
+                      number: 3002
       tls:
         - hosts:
             - web-cs.software
