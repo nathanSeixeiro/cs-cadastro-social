@@ -31,7 +31,7 @@ items:
                 - name: TZ
                   value: America/Sao_Paulo
               ports:
-                - containerPort: 3002
+                - containerPort: 3000
                   protocol: TCP
               resources:
                 requests:
@@ -57,9 +57,9 @@ items:
       namespace: ns-cs
     spec:
       ports:
-        - port: 3002
+        - port: 3000
           protocol: TCP
-          targetPort: 3002
+          targetPort: 3000
       selector:
         app: cs-frontend-service
       sessionAffinity: None
@@ -72,7 +72,7 @@ items:
       namespace: ns-cs
       annotations:
         kubernetes.io/ingress.class: traefik
-        cert-manager.io/cluster-issuer: letsencrypt
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
@@ -88,7 +88,7 @@ items:
                   service:
                     name: cs-frontend-service
                     port:
-                      number: 3002
+                      number: 3000
       tls:
         - hosts:
             - web-cs.software
