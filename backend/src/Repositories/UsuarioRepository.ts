@@ -78,7 +78,7 @@ class UsuarioRepository implements IUsuarioRepository {
       .then(() => {
         return;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         if (error instanceof Error) {
           throw new Error(error.message);
         }
@@ -98,7 +98,7 @@ class UsuarioRepository implements IUsuarioRepository {
       .then(() => {
         return;
       })
-      .catch((error) => {
+      .catch((error: any) => {
         if (error instanceof Error) {
           throw new Error(error.message);
         }
