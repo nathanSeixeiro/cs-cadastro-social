@@ -1,15 +1,16 @@
-name: Pipeline backend
+name: Pipeline frontend - Doks
 
 on:
   push:
     branches:
       - homolog
-    paths:
+    paths-ignore:
       - 'backend/**'
-      - '.github/workflows/main.yml'
+      - '.github/workflows/backend.yml'
 
 env:
-  IMAGE_NAME: cs-backend-service
+  CLUSTER_NAME: first-project-doks-cluster
+  IMAGE_NAME: cs-frontend-service
   TAG: ${{ github.sha }}
 
 jobs:
@@ -18,11 +19,19 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./backend  # define onde rodar os comandos
+        working-directory: ./frontend
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -32,7 +41,7 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      - name: Build TypeScript
+      - name: Build da aplicação
         run: npm run build
 
   build-and-push:
@@ -49,14 +58,14 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Build container image
-        run: docker build -t ${{ secrets.REGISTRY_NAME }}/$IMAGE_NAME:$(echo $GITHUB_SHA | head -c7) -f backend/Dockerfile backend
-
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      - name: Log in to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 1200
 
-      - name: Push image to DigitalOcean Container Registry
-        run: docker push ${{ secrets.REGISTRY_NAME }}/$IMAGE_NAME:$(echo $GITHUB_SHA | head -c7)
+      - name: Build Docker image
+        run: docker build -t registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG -f frontend/Dockerfile frontend
+
+      - name: Push Docker image
+        run: docker push registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG
 
   deploy:
     name: Deploy to Doks
@@ -74,5 +83,5 @@ jobs:
 
       - name: Update image in deployment
         run: |
-          doctl kubernetes cluster kubeconfig save ${{ secrets.DOKS_CLUSTER_NAME }}
-          kubectl set image deployment/cs-backend-service cs-backend-service=${{ secrets.REGISTRY_NAME }}/$IMAGE_NAME:$(echo $GITHUB_SHA | head -c7) --namespace=ns-cs
+          doctl kubernetes cluster kubeconfig save $CLUSTER_NAME
+          kubectl set image deployment/cs-frontend-service cs-frontend-service=registry.digitalocean.com/first-project-doks-registry/$IMAGE_NAME:$TAG --namespace=ns-cs

@@ -1,4 +1,4 @@
-import reactLogo from "@/assets/react.svg";
+import logo from "@/assets/logo.svg";
 import googleLogo from "@/assets/google.svg";
 import { Button } from "@/components/ui/button";
 import { InputLabel } from "../components/internals/fieldSets/inputLabel";
@@ -60,7 +60,7 @@ const SignIn = () => {
       <section className=" h-full w-full grid place-items-center">
         <div className="w-full grid justify-items-center gap-7">
           <Link to="https://react.dev" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
+            <img src={logo} className="logo react w-[5rem] " alt="React logo" />
           </Link>
           <div className="text-start grid justify-center w-full mb-8">
             <h1 className="text-[26px] text-[#344054] font-extrabold">

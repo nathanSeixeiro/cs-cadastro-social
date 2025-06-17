@@ -26,10 +26,10 @@ export function ISelectLabel({
   childs,
   placehoder,
   className,
-  value,
-  onChange,
-  required,
-  readonly
+  // value,
+  // onChange,
+  // required,
+  // readonly
 }: SelectLabelProps) {
   return (
     <fieldset className="grid w-full max-w-sm items-center justify-items-start gap-1.5">

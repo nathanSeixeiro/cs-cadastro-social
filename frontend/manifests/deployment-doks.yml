@@ -4,7 +4,7 @@ items:
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: cs-backend-service
+      name: cs-frontend-service
       namespace: ns-cs
     spec:
       progressDeadlineSeconds: 600
@@ -12,7 +12,7 @@ items:
       revisionHistoryLimit: 10
       selector:
         matchLabels:
-          app: cs-backend-service
+          app: cs-frontend-service
       strategy:
         rollingUpdate:
           maxSurge: 25%
@@ -21,11 +21,11 @@ items:
       template:
         metadata:
           labels:
-            app: cs-backend-service
+            app: cs-frontend-service
         spec:
           containers:
-            - name: cs-backend-service
-              image: registry.digitalocean.com/first-project-doks-registry/cs-backend-service:7ed0f9696daf23b2d52525de2a4cc736187c818d
+            - name: cs-frontend-service
+              image: registry.digitalocean.com/first-project-doks-registry/cs-frontend-service:latest
               imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
@@ -44,7 +44,7 @@ items:
               terminationMessagePolicy: File
           dnsPolicy: ClusterFirst
           imagePullSecrets:
-            - name: cs-backend-secret
+            - name: cs-frontend-secret
           restartPolicy: Always
           schedulerName: default-scheduler
           securityContext: {}
@@ -53,7 +53,7 @@ items:
   - apiVersion: v1
     kind: Service
     metadata:
-      name: cs-backend-service
+      name: cs-frontend-service
       namespace: ns-cs
     spec:
       ports:
@@ -61,34 +61,35 @@ items:
           protocol: TCP
           targetPort: 3000
       selector:
-        app: cs-backend-service
+        app: cs-frontend-service
       sessionAffinity: None
       type: ClusterIP
 
   - apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
-      name: cs-backend-service
+      name: cs-frontend-service
       namespace: ns-cs
       annotations:
         kubernetes.io/ingress.class: traefik
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
     spec:
       ingressClassName: traefik
       rules:
-        - host: api-cs.software
+        - host: web-cs.software
           http:
             paths:
               - path: /
                 pathType: Prefix
                 backend:
                   service:
-                    name: cs-backend-service
+                    name: cs-frontend-service
                     port:
                       number: 3000
       tls:
         - hosts:
-            - api-cs.software
-          secretName: cs-backend-tls-secret
+            - web-cs.software
+          secretName: cs-frontend-tls-secret
