@@ -218,7 +218,8 @@ const AssistList = () => {
                     {/* <img className="h-14 w-14 rounded-full object-cover object-center" src={`https://api-cs.software${assistido.foto}`}/> */}
                     <img
                       className="h-14 w-14 rounded-full object-cover object-center"
-                      src={assistido.foto ? `https://api-cs.software${assistido.foto}` : "../../assets/default-avatar.png"}
+                      src={ "../../assets/default-avatar.png"}
+                      // src={assistido.foto ? `https://api-cs.software${assistido.foto}` : "../../assets/default-avatar.png"}
                       alt={`Foto de ${assistido.nome}`}
                     />
                     <span className="font-bold text-gray-800">
