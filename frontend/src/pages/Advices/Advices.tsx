@@ -30,18 +30,18 @@ const Advices = () => {
   const navigate = useNavigate();
   const [advices, setAdvices] = useState<AdviceProps[]>([]);
 
-  async function alterarAviso(event: React.FormEvent<HTMLFormElement>,id: number) 
+  async function alterarAviso(event: React.FormEvent<HTMLFormElement>,id: number)
   {
     event?.preventDefault();
     const token = sessionStorage.getItem("token");
     const titulo = event.currentTarget.titulo.value;
     const descricao = event.currentTarget.descricao.value;
 
-    axios.put(`http://localhost:3000/Aviso/update/${id}`, 
+    axios.put(`https://api-cs.software/Aviso/update/${id}`,
       {
         titulo: titulo,
         descricao: descricao
-      },           
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const Advices = () => {
     const token = sessionStorage.getItem("token");
     const listarAvisos = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/Aviso/", {
+        const response = await axios.get("https://api-cs.software/Aviso/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -129,7 +129,7 @@ const Advices = () => {
                   <fieldset className="grid w-full max-w-sm items-center justify-items-start gap-1.5">
                     <Label>Descrição</Label>
                     <Textarea name="descricao" placeholder={ "Atual: " + advice.descricao }>
-                    
+
                     </Textarea>
                   </fieldset>
 

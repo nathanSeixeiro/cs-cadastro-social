@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     const buscarAssistidosCharts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/Assistidos/");
+        const response = await axios.get("https://api-cs.software/Assistidos/");
         const { data } = response;
         setAssistidos(data);
         setTotalAssistidos(data.length);

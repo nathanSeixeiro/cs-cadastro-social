@@ -26,7 +26,7 @@ const AssistRegister = () => {
 
     try {
       await axios
-        .post(`http://localhost:3000/Assistidos/${idAssistido}/upload-photo`, formData, {
+        .post(`https://api-cs.software/Assistidos/${idAssistido}/upload-photo`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then(() => {
@@ -73,7 +73,7 @@ const AssistRegister = () => {
 
     try {
       await axios
-        .post("http://localhost:3000/Assistidos/", {
+        .post("https://api-cs.software/Assistidos/", {
           nome: nome,
           data_nascimento: dataNascimento,
           sexo: sexo,
@@ -91,7 +91,7 @@ const AssistRegister = () => {
           setIdAssitido(res.data.id)
           setModalFoto(!modalFoto);
 
- 
+
         })
         .catch(() => {
           toast.error("Dados inválidos tente novamente!", {

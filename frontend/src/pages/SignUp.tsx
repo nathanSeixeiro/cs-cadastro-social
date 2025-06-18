@@ -16,7 +16,7 @@ const SignUp = () => {
     const senha = event.currentTarget.senha.value;
 
     try {
-      await axios.post("http://localhost:3000/Usuario/", {
+      await axios.post("https://api-cs.software/Usuario/", {
         nome: nome,
         email: email,
         telefone: telefone,

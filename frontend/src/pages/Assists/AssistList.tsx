@@ -45,7 +45,7 @@ const AssistList = () => {
   useEffect(() => {
     const listarAssistidos = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/Assistidos/");
+        const response = await axios.get("https://api-cs.software/Assistidos/");
         const data = await response.data;
         setAssistidos(data);
         setAssistidosFiltrados(data); // Set filtered list initially
@@ -92,7 +92,7 @@ const AssistList = () => {
     const situacao = event.currentTarget.situacao.value;
 
     try {
-      await axios.put(`http://localhost:3000/Assistidos/update/${id}`, {
+      await axios.put(`https://api-cs.software/Assistidos/update/${id}`, {
         situacao,
       });
       toast.success("Situação alterada com sucesso", {
@@ -215,7 +215,12 @@ const AssistList = () => {
               <Dialog key={assistido.id}>
                 <DialogTrigger asChild>
                   <article className="border-[1px] border-gray-400/50 border-solid rounded-3xl p-4 text-start">
-                    <img className="h-14 w-14 rounded-full object-cover object-center" src={`http://localhost:3000${assistido.foto}`}/>
+                    {/* <img className="h-14 w-14 rounded-full object-cover object-center" src={`https://api-cs.software${assistido.foto}`}/> */}
+                    <img
+                      className="h-14 w-14 rounded-full object-cover object-center"
+                      src={assistido.foto ? `https://api-cs.software${assistido.foto}` : "../../assets/default-avatar.png"}
+                      alt={`Foto de ${assistido.nome}`}
+                    />
                     <span className="font-bold text-gray-800">
                       {assistido.nome}
                     </span>

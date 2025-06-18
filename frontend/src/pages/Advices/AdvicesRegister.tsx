@@ -16,7 +16,7 @@ const AdvicesRegister = () => {
     try {
       axios
         .post(
-          "http://localhost:3000/Aviso/",
+          "https://api-cs.software/Aviso/",
           {
             titulo: titulo,
             descricao: descricao,

@@ -15,7 +15,7 @@ const SignIn = () => {
     const email = event.currentTarget.email.value;
     const senha = event.currentTarget.senha.value;
     try {
-      await axios.post("http://localhost:3000/Auth/", {
+      await axios.post("https://api-cs.software/Auth/", {
         email: email,
         senha: senha,
       })

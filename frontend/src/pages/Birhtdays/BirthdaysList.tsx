@@ -59,7 +59,7 @@ const BirthdaysList = () => {
   useEffect(() => {
     const listarAssistidos = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/Assistidos/");
+        const response = await axios.get("https://api-cs.software/Assistidos/");
         setAssistidos(response.data);
       } catch (error) {
         console.error("Erro ao buscar assistidos:", error);

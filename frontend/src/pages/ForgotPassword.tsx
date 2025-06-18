@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     const email = event.currentTarget.email.value;
 
     try {
-      await axios.post("http://localhost:3000/forgot-password", { email });
+      await axios.post("https://api-cs.software/forgot-password", { email });
       toast.success("E-mail de recuperação enviado com sucesso!", {
         position: "top-right",
         autoClose: 5000,
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      await axios.post(`http://localhost:3000/forgot-password/${id}`, {
+      await axios.post(`https://api-cs.software/forgot-password/${id}`, {
         password,
       });
       toast.success("Senha redefinida com sucesso!", {
