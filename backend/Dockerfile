@@ -24,7 +24,9 @@ RUN npm install
 COPY . .
 
 # Gera o client do Prisma com o binário certo para Alpine
-RUN npx prisma generate
+RUN npm install @prisma/client@latest \
+    npm install prisma@latest --save-dev \
+    npx prisma generate
 
 # Build do projeto (caso use Next.js, Vite, etc)
 RUN npm run build

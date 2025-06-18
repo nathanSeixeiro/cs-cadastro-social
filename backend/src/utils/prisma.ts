@@ -1,5 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
-export const prisma = new PrismaClient({
-  log: ["query"],
-});
+const prisma = new PrismaClient({
+  // Add the missing enableTracing option
+  log: ['query', 'info', 'warn', 'error'],
+  errorFormat: 'pretty',
+  // enableTracing: true // This option does not exist in PrismaClientOptions
+})
+
+export default prisma
