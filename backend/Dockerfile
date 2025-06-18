@@ -4,7 +4,8 @@ FROM node:18-alpine
 ENV TZ=America/Sao_Paulo \
     LANG=pt_BR.UTF-8 \
     LANGUAGE=pt_BR:pt:en \
-    LC_ALL=pt_BR.UTF-8
+    LC_ALL=pt_BR.UTF-8 \
+    ENABLE_TRACING=false
 
 # Diretório de trabalho
 WORKDIR /usr/src/app
