@@ -13,23 +13,23 @@ async function main() {
   await prisma.usuario.createMany({
     data: [
       {
-        nome: "João Silva",
+        nome: "Nathan Seixeiro",
         telefone: "11999999999",
-        email: "joao.silva@example.com",
+        email: "nathan@example.com",
         senha: "senha123",
         ativo: true,
       },
       {
-        nome: "Maria Oliveira",
+        nome: "Luiz Fernando",
         telefone: "21988888888",
-        email: "maria.oliveira@example.com",
+        email: "luiz@example.com",
         senha: "senha456",
         ativo: true,
       },
       {
-        nome: "Carlos Pereira",
+        nome: "Bryan Gustavo",
         telefone: "31977777777",
-        email: "carlos.pereira@example.com",
+        email: "bryan@example.com",
         senha: "senha789",
         ativo: false,
       },
@@ -71,6 +71,7 @@ async function main() {
       existe_contato: true,
       descricao: "Morador de rua há 5 anos",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/1.jpg",
     },
     {
       nome: "Ana",
@@ -84,6 +85,7 @@ async function main() {
       existe_contato: true,
       descricao: "Em recuperação após uso de substâncias",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/1.jpg",
     },
     {
       nome: "João",
@@ -97,6 +99,7 @@ async function main() {
       existe_contato: false,
       descricao: "Recuperado de problemas com álcool",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/2.jpg",
     },
     {
       nome: "Maria",
@@ -110,6 +113,7 @@ async function main() {
       existe_contato: true,
       descricao: "Vive nas ruas após dificuldades financeiras",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/2.jpg",
     },
     {
       nome: "Pedro",
@@ -123,6 +127,7 @@ async function main() {
       existe_contato: true,
       descricao: "Em processo de reabilitação",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/3.jpg",
     },
     {
       nome: "Julia",
@@ -136,6 +141,7 @@ async function main() {
       existe_contato: true,
       descricao: "Recuperada de problemas de dependência",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/3.jpg",
     },
     {
       nome: "Roberto",
@@ -149,6 +155,7 @@ async function main() {
       existe_contato: false,
       descricao: "Vive nas ruas após perder emprego",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/4.jpg",
     },
     {
       nome: "Claudia",
@@ -162,6 +169,7 @@ async function main() {
       existe_contato: true,
       descricao: "Em tratamento psiquiátrico",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/4.jpg",
     },
     {
       nome: "Fernando",
@@ -175,6 +183,7 @@ async function main() {
       existe_contato: true,
       descricao: "Recuperado de dependência química",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/5.jpg",
     },
     {
       nome: "Laura",
@@ -188,6 +197,7 @@ async function main() {
       existe_contato: false,
       descricao: "Moradora de rua após abusos sofridos",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/5.jpg",
     },
     {
       nome: "Gabriel",
@@ -201,6 +211,7 @@ async function main() {
       existe_contato: true,
       descricao: "Em recuperação após uso de drogas",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/6.jpg",
     },
     {
       nome: "Patricia",
@@ -214,6 +225,7 @@ async function main() {
       existe_contato: true,
       descricao: "Recuperada de problemas financeiros",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/6.jpg",
     },
     {
       nome: "Carlos Eduardo",
@@ -227,6 +239,7 @@ async function main() {
       existe_contato: false,
       descricao: "Vive nas ruas após desemprego",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/7.jpg",
     },
     {
       nome: "Sofia",
@@ -240,6 +253,7 @@ async function main() {
       existe_contato: true,
       descricao: "Recuperação após abuso familiar",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/7.jpg",
     },
     {
       nome: "Felipe",
@@ -253,6 +267,7 @@ async function main() {
       existe_contato: true,
       descricao: "Recuperado de depressão",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/8.jpg",
     },
     {
       nome: "Isabela",
@@ -266,6 +281,7 @@ async function main() {
       existe_contato: true,
       descricao: "Vive nas ruas após crise emocional",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/8.jpg",
     },
     {
       nome: "Ricardo",
@@ -279,6 +295,7 @@ async function main() {
       existe_contato: false,
       descricao: "Em recuperação após dependência química",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/9.jpg",
     },
     {
       nome: "Fernanda",
@@ -292,6 +309,7 @@ async function main() {
       existe_contato: true,
       descricao: "Recuperada de problemas psicológicos",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/9.jpg",
     },
     {
       nome: "Alexandre",
@@ -305,6 +323,7 @@ async function main() {
       existe_contato: false,
       descricao: "Morador de rua devido a dificuldades familiares",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/men/10.jpg",
     },
     {
       nome: "Tatiane",
@@ -318,6 +337,7 @@ async function main() {
       existe_contato: true,
       descricao: "Em recuperação após trauma psicológico",
       ativo: true,
+      foto: "https://randomuser.me/api/portraits/women/10.jpg",
     },
   ];
   // Inserindo assistidos no banco
