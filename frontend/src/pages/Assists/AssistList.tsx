@@ -1,6 +1,7 @@
 import { IconButton } from "@/components/internals/buttons/iconButton";
 import Filter from "@/assets/filter.svg";
 import { Button } from "@/components/ui/button";
+import Avatar from "@/assets/default-avatar.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -219,7 +220,7 @@ const AssistList = () => {
                     <img
                       className="h-14 w-14 rounded-full object-cover object-center"
                       // src={ "../../assets/default-avatar.png"}
-                      src={assistido.foto ? `https://api-cs.software${assistido.foto}` : "../../assets/default-avatar.png"}
+                      src={assistido.foto ? `https://api-cs.software${assistido.foto}` : Avatar}
                       alt={`Foto de ${assistido.nome}`}
                     />
                     <span className="font-bold text-gray-800">
