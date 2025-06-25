@@ -10,52 +10,52 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Inserindo usuários
-  await prisma.usuario.createMany({
-    data: [
-      {
-        nome: "Nathan Seixeiro",
-        telefone: "11999999999",
-        email: "nathan@example.com",
-        senha: "senha123",
-        ativo: true,
-      },
-      {
-        nome: "Luiz Fernando",
-        telefone: "21988888888",
-        email: "luiz@example.com",
-        senha: "senha456",
-        ativo: true,
-      },
-      {
-        nome: "Bryan Gustavo",
-        telefone: "31977777777",
-        email: "bryan@example.com",
-        senha: "senha789",
-        ativo: false,
-      },
-    ],
-  });
+  // await prisma.usuario.createMany({
+  //   data: [
+  //     {
+  //       nome: "Nathan Seixeiro",
+  //       telefone: "11999999999",
+  //       email: "nathan@example.com",
+  //       senha: "senha123",
+  //       ativo: true,
+  //     },
+  //     {
+  //       nome: "Luiz Fernando",
+  //       telefone: "21988888888",
+  //       email: "luiz@example.com",
+  //       senha: "senha456",
+  //       ativo: true,
+  //     },
+  //     {
+  //       nome: "Bryan Gustavo",
+  //       telefone: "31977777777",
+  //       email: "bryan@example.com",
+  //       senha: "senha789",
+  //       ativo: false,
+  //     },
+  //   ],
+  // });
 
-  // Inserindo quadros de aviso
-  await prisma.quadroAviso.createMany({
-    data: [{ id: 1 }, { id: 2 }],
-  });
+  // // Inserindo quadros de aviso
+  // await prisma.quadroAviso.createMany({
+  //   data: [{ id: 1 }, { id: 2 }],
+  // });
 
-  // Inserindo avisos
-  await prisma.aviso.createMany({
-    data: [
-      {
-        titulo: "Precisa de novos sapatos",
-        descricao: "Precisamos de novos sapatos para os moradores tamanho 41.",
-        quadroAvisoId: 1,
-      },
-      {
-        titulo: "Novo procedimento",
-        descricao: "Atualização dos procedimentos internos.",
-        quadroAvisoId: 2,
-      },
-    ],
-  });
+  // // Inserindo avisos
+  // await prisma.aviso.createMany({
+  //   data: [
+  //     {
+  //       titulo: "Precisa de novos sapatos",
+  //       descricao: "Precisamos de novos sapatos para os moradores tamanho 41.",
+  //       quadroAvisoId: 1,
+  //     },
+  //     {
+  //       titulo: "Novo procedimento",
+  //       descricao: "Atualização dos procedimentos internos.",
+  //       quadroAvisoId: 2,
+  //     },
+  //   ],
+  // });
 
   // Criando 20 assistidos com campos adicionais
   const assistidos = [
@@ -341,13 +341,19 @@ async function main() {
     },
   ];
   // Inserindo assistidos no banco
-  for (const assistido of assistidos) {
-    await prisma.assistido.create({
-      data: assistido,
-    });
-  }
+  // for (const assistido of assistidos) {
+  //   await prisma.assistido.create({
+  //     data: assistido,
+  //   });
+  // }
 
+  removerFotosAssistidos(assistidos);
   console.log("Assistidos criados com sucesso!");
+}
+
+// Método para remover todas as fotos dos assistidos
+function removerFotosAssistidos(lista: any) {
+  return lista.map((assistido: any) => ({ ...assistido, foto: "/uploads/download.png" }));
 }
 
 main()
